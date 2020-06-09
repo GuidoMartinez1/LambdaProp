@@ -91,14 +91,28 @@ ordenado por mayor superficie, que cumplan con:
 ■ Ser de 1 o 2 ambientes
 ■ Alquilarse a menos de $6000 por mes-}
 
+--PUNTO A
 cumpleBusqueda :: Depto -> Busqueda -> Bool
 cumpleBusqueda depto = all (cumpleRequisito depto) 
 
 cumpleRequisito :: Depto -> Requisito -> Bool
 cumpleRequisito depto requisito = requisito depto
 
+--PUNTO B
 
+buscar :: Busqueda -> (Depto -> Depto -> Bool) -> [Depto] -> [Depto]
+buscar busqueda criterioDeOrdenamiento deptos =
+    ordenarSegun criterioDeOrdenamiento . filter (flip cumpleBusqueda busqueda) $ deptos
+buscar' busqueda criterioDeOrdenamiento  =
+    ordenarSegun criterioDeOrdenamiento . filter (flip cumpleBusqueda busqueda) 
 
+--CONSULTA EN CONSOLA
+{- buscar busquedaDeEjemplo (mayor superficie) deptosDeEjemplo 
+[Depto {ambientes = 2, superficie = 50, precio = 5000, barrio = "Palermo"},
+Depto {ambientes = 1, superficie = 45, precio = 5500, barrio = "Recoleta"}]
+CUMPLE CON EL CRITERIO DE ORDENAMIENTO (sup de mayor a menor) Y CON LA BUSQUEDA EJEMPLAR (se queda con palermo y recoleta) -}
+
+--PUNTO C
 busquedaDeEjemplo :: Busqueda
 busquedaDeEjemplo = [
     ubicadoEn ["Recoleta", "Palermo"],
