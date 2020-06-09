@@ -120,3 +120,14 @@ busquedaDeEjemplo = [
      --(<6000).precio
     cumpleRango precio 0 6000
     ]
+
+--PUNTO 4
+{- Definir la función mailsDePersonasInteresadas que a partir de un departamento y una lista de
+personas retorne los mails de las personas que tienen alguna búsqueda que se cumpla para el
+departamento dado.-}
+
+mailsDePersonasInteresadas :: Depto -> [Persona] -> [Mail]
+mailsDePersonasInteresadas depto  = map mail . filter (estaInteresada depto)
+
+estaInteresada :: Depto -> Persona -> Bool
+estaInteresada depto persona = any (cumpleBusqueda depto) (busquedas persona)
